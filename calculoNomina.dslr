@@ -971,25 +971,25 @@ rule "Seguro de gastos medicos mayores mando superior"
 end
 
 
-rule "Seguro de responsabilidad civil y asistencia legal mando medio"
-    salience 50
-    when
-        Pago
-        -mando o enlace
-        -tiene DEDUCCION codigo "95"
-    then
-        Asignar DEDUCCION codigo "95" con valor (MONTO_CPTO "D" "95") + (ADEUDO_CPTO "D" "95") 
-end
+#rule "Seguro de responsabilidad civil y asistencia legal mando medio"
+#    salience 50
+#    when
+#        Pago
+#        -mando o enlace
+#        -tiene DEDUCCION codigo "95"
+#    then
+#        Asignar DEDUCCION codigo "95" con valor (MONTO_CPTO "D" "95") + (ADEUDO_CPTO "D" "95") 
+#end
 
-rule "Seguro de responsabilidad civil y asistencia legal mando superior"
-    salience 50
-    when
-        Pago
-        -mando superior
-        -tiene DEDUCCION codigo "95"
-    then
-        Asignar DEDUCCION codigo "95" con valor (MONTO_CPTO "D" "95") + (ADEUDO_CPTO "D" "95") 
-end
+#rule "Seguro de responsabilidad civil y asistencia legal mando superior"
+#    salience 50
+#    when
+#        Pago
+#        -mando superior
+#        -tiene DEDUCCION codigo "95"
+#    then
+#        Asignar DEDUCCION codigo "95" con valor (MONTO_CPTO "D" "95") + (ADEUDO_CPTO "D" "95") 
+#end
 
 rule "ISSSTE prestamo a corto plazo, no honorarios"
     salience 50
