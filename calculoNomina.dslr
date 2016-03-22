@@ -2139,3 +2139,5 @@ rule "Devolucion de Seguro de responsabilidad civil"
     then
         Asignar PERCEPCION codigo "DR" con valor (MONTO_CPTO "P" "DR") + (ADEUDO_CPTO "P" "DR") 
 end
+
+# fin
