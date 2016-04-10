@@ -5,6 +5,6 @@ Las reglas estan en Drools
 
 Son leidas por un sistema desarrollado en JAVA
 
-Reglas de calculo de una nomnina, concepto por concepto
+Reglas de calculo de una nomina, concepto por concepto
 
 
