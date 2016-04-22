@@ -1,0 +1,31 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Notas Merito"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "NM"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "NM") ) - (MONTO_CPTO "P" "AM")  - (MONTO_CPTO "P" "NM")  
+        Asignar PERCEPCION codigo "NM" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "NM") ) - (MONTO_CPTO "P" "AM")
+end
+
+rule "Calculo de pensiones alimenticias"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "NM"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
