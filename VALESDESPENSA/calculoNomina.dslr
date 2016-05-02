@@ -1,0 +1,46 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Vales de despensa estructura"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -estructura
+        -tiene PERCEPCION codigo "VA"
+    then
+        Asignar PERCEPCION codigo "VA" con valor (MONTO_CPTO "P" "VA")
+end
+
+rule "Vales de despensa eventual"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -eventual
+        -tiene PERCEPCION codigo "VA"
+    then
+        Asignar PERCEPCION codigo "VA" con valor (MONTO_CPTO "P" "VA")
+end
+
+rule "Calculo de pensiones alimenticias"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "VA"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+# fin
