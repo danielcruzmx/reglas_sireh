@@ -1,0 +1,37 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+
+rule "Dias festivos"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "67"
+    then
+         Asignar PERCEPCION codigo "67" con valor (MONTO_CPTO "P" "67") 
+         Asignar PERCEPCION codigo "6E" con valor (MONTO_CPTO "P" "6E")
+         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_OPERATIVO * 2.0 + (MONTO_CPTO "P" "67")) - isr(GRAVABLE_OPERATIVO * 2.0)
+end
+
+
+rule "Calculo de pensiones alimenticias"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+# FIN
