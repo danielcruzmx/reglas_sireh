@@ -19,12 +19,12 @@
 [condition][]-con erario=erario == 'S'
 [keyword][]CUOTA_SIND=0.015
 [keyword][]PORC_ERARIO=0.001
-[keyword][]MONTO_PREST_FIJAS=(207.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_AYUDA_DESPENSA=(232.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_PREVISION_SOCIAL=(207.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
-[keyword][]MONTO_AYUDA_SERVICIOS=(192.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
-[keyword][]MONTO_AYUDA_TRANSPORTE=(150.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
-[keyword][]COMP_X_DESA=(650.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
+[keyword][]MONTO_PREST_FIJAS=(232.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_AYUDA_DESPENSA=(282.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_PREVISION_SOCIAL=(232.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
+[keyword][]MONTO_AYUDA_SERVICIOS=(217.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
+[keyword][]MONTO_AYUDA_TRANSPORTE=(200.00 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
+[keyword][]COMP_X_DESA=(700.00 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
 [keyword][]PRIMA_QUIN_A1=(50.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A1"))
 [keyword][]PRIMA_QUIN_A2=(62.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A2"))
 [keyword][]PRIMA_QUIN_A3=(87.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A3"))
@@ -35,7 +35,7 @@
 [keyword][]CUOTA_ISSSTE_0C=0.005
 [keyword][]CUOTA_ISSSTE_0D=0.06125
 [keyword][]CUOTA_ISSSTE_0E=0.00625
-[keyword][]AYUDA_DESP=(232.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]AYUDA_DESP=(282.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
 [keyword][]MONTO_SEGURO_COLECTIVO_PAR=(7.28  * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]MONTO_SEGURO_COLECTIVO_MES=(7.275 * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]FONDO_RET_SIND=0.01
