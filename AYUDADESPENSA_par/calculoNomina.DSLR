@@ -17,7 +17,7 @@ rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
        -tiene PERCEPCION codigo "A8"
     then
       Asignar PERCEPCION codigo "38" con valor (MONTO_CPTO "P" "A8")
-      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "AM") + (MONTO_CPTO "P" "A8")) - isr(MONTO_CPTO "P" "IM"))) 
+      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "AM") + (MONTO_CPTO "P" "A8")) - isr(MONTO_CPTO "P" "AM"))
 end
 
 rule "Calculo de pensiones alimenticias"
