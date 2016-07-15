@@ -1,0 +1,32 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
+    salience 20
+    when
+       Pago
+       -nomina ordinaria
+       -tiene PERCEPCION codigo "A8"
+    then
+      Asignar PERCEPCION codigo "38" con valor (MONTO_CPTO "P" "A8")
+      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "AM") + (MONTO_CPTO "P" "A8")) - isr(MONTO_CPTO "P" "IM"))) 
+end
+
+rule "Calculo de pensiones alimenticias"
+    salience 10
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "A8"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
