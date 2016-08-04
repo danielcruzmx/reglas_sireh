@@ -98,7 +98,7 @@ rule "Prima quinquenal 5 a 9 años"
         Integra sueldo base ISSSTE con PRIMA_QUIN_A1 + ADEUDO_CPTO "P" "A1"
         Suma a gravable PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "A1") / 2.0)  
         A gravable prima PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "A1") / 2.0)
-        A prestaciones gravadas PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "AA1") / 2.0)
+        A prestaciones gravadas PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "A1") / 2.0)
 end
 
 rule "Prima quinquenal 10 a 14 años"
@@ -113,7 +113,7 @@ rule "Prima quinquenal 10 a 14 años"
         Integra sueldo base ISSSTE con PRIMA_QUIN_A2 + ADEUDO_CPTO "P" "A2"
         Suma a gravable PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "A2") / 2.0)
         A gravable prima PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "A2") / 2.0)
-        A prestaciones gravadas PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "AA2") / 2.0)
+        A prestaciones gravadas PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "A2") / 2.0)
 end
 
 rule "Prima quinquenal 15 a 19 años"
@@ -128,7 +128,7 @@ rule "Prima quinquenal 15 a 19 años"
         Integra sueldo base ISSSTE con PRIMA_QUIN_A3 + ADEUDO_CPTO "P" "A3"
         Suma a gravable PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "A3") / 2.0)
         A gravable prima PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "A3") / 2.0)
-        A prestaciones gravadas PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "AA3") / 2.0)
+        A prestaciones gravadas PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "A3") / 2.0)
 end
 
 rule "Prima quinquenal 20 a 25 años"
@@ -143,7 +143,7 @@ rule "Prima quinquenal 20 a 25 años"
         Integra sueldo base ISSSTE con PRIMA_QUIN_A4 + ADEUDO_CPTO "P" "A4"
         Suma a gravable PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "A4") / 2.0)
         A gravable prima PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "A4") / 2.0)
-        A prestaciones gravadas PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "AA4") / 2.0)
+        A prestaciones gravadas PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "A4") / 2.0)
 end
 
 rule "Prima quinquenal mayor 25 años"
@@ -158,7 +158,7 @@ rule "Prima quinquenal mayor 25 años"
         Integra sueldo base ISSSTE con PRIMA_QUIN_A5 + ADEUDO_CPTO "P" "A5"
         Suma a gravable PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
         A gravable prima PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
-        A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "AA5") / 2.0)
+        A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
 end
  
 rule "Ayuda de despensa personal de mando o enlace"
