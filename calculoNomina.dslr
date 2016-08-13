@@ -16,7 +16,7 @@ rule "Sueldo y compensacion personal de estructura"
         -nomina ordinaria
         -estructura
     then
-        Asignar PERCEPCION codigo "07" con valor SUELDO
+        Asignar PERCEPCION codigo "07" con valor SUELDO 
         Asignar PERCEPCION codigo "06" con valor COMPENSACION
         Integra sueldo base ISSSTE con SUELDO
         Sueldo base ISSSTE patron con SUELDO 
@@ -47,8 +47,8 @@ rule "Sueldo y compensacion personal en el extranjero"
         Pago
         -en el extranjero
     then
-        Asignar PERCEPCION codigo "07" con valor SUELDO * 2.0
-        Asignar PERCEPCION codigo "06" con valor COMPENSACION * 2.0
+        Asignar PERCEPCION codigo "07" con valor (SUELDO * 2.0)
+        Asignar PERCEPCION codigo "06" con valor (COMPENSACION * 2.0)
         Integra sueldo base ISSSTE con SUELDO * 2.0
         Sueldo base ISSSTE patron con SUELDO * 2.0 
         Suma a gravable SUELDO + COMPENSACION * 2.0
