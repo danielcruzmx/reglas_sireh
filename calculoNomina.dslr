@@ -502,7 +502,7 @@ rule "Seguro colectivo de retiro para nones, con retroactivo"
         -es quincena non
         -es retroactivo
     then
-        Asignar DEDUCCION codigo "77" con valor MONTO_SEGURO_COLECTIVO_MES
+        Asignar DEDUCCION codigo "77" con valor (Math.floor(7.275 * FACTOR * 100) / 100 - pago.montoConceptoRetroactivo("D","77"))
 end
 
 # estas reglas se derogan 29/12/2015
@@ -560,7 +560,7 @@ rule "Descuento de FONAC ORDINARIO "
         -operativo
         -tiene FONAC ORDINARIO
     then
-        Asignar DEDUCCION codigo "21" con valor 217.20 + ADEUDO_FONAC
+        Asignar DEDUCCION codigo "21" con valor 217.21 + ADEUDO_FONAC
 end
 
 rule "Descuento de FONAC EXTRAORDINARIO "
@@ -623,8 +623,8 @@ rule "Seguro de separacion mando medio"
         -mando o enlace
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "81" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
-        Asignar DEDUCCION codigo "82" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
 end
 
 rule "Seguro de separacion mando superior"
@@ -634,8 +634,8 @@ rule "Seguro de separacion mando superior"
         -mando superior
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "81" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
-        Asignar DEDUCCION codigo "82" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
+        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR) 
 end
 
 rule "Seguro de vida institucional"
