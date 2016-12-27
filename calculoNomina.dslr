@@ -560,7 +560,7 @@ rule "Descuento de FONAC ORDINARIO "
         -operativo
         -tiene FONAC ORDINARIO
     then
-        Asignar DEDUCCION codigo "21" con valor 217.21 + ADEUDO_FONAC
+        Asignar DEDUCCION codigo "21" con valor 217.20 + ADEUDO_FONAC
 end
 
 rule "Descuento de FONAC EXTRAORDINARIO "
