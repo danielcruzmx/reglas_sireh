@@ -1,0 +1,33 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "puntualidad acumulada"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PF"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + ((MONTO_CPTO "P" "PF") * 0.08328))) - (MONTO_CPTO "P" "IM")) * 12.0065
+        Asignar PERCEPCION codigo "PF" con valor (isr(bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + ((MONTO_CPTO "P" "PF") * 0.08328))) - (MONTO_CPTO "P" "IM")) * 12.0065 + (MONTO_CPTO "P" "PF")   
+end
+
+rule "pensiones"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+

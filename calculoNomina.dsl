@@ -51,7 +51,7 @@
 [consequence][]Integra sueldo base ISSSTE con {valor}=pago.setAcumuladoSdoBase({valor});
 [consequence][]Suma a gravable {valor}=pago.setAcumuladoGravable({valor});
 [consequence][]Calcula y asigna pensiones "{tipo}" "{concepto}"=pago.calculaPensiones("{tipo}","{concepto}");
-[keyword][]TOPE_SDO_BASE=pago.sueldoBase(10956.00 * pago.getFactor())
+[keyword][]TOPE_SDO_BASE=pago.sueldoBase(11323.50 * pago.getFactor())
 [keyword][]GRAVABLE=pago.getAcumuladoGravable()
 [keyword][]MONTO_SEG_SEP=((pago.getTabSueldo() + pago.getTabCompensacion()) * pago.porcentajeConcepto("D","82") / 100.00 /2.0 * pago.getFactor() - pago.montoConceptoRetroactivo("D","82"))
 [keyword][]LIC_MEDICAS_MEDIO_SDO=pago.acumulaLicencias("DLM")
@@ -77,6 +77,7 @@
 [condition][]-es plaza {valor}=idPlaza == {valor}
 [condition][]-es filiacion "{valor}"=rfcEmpleado == "{valor}"
 [condition][]-es de la unidad  "{valor}"=idUnidadNomb == "{valor}"
+[condition][]-no es de la unidad  "{valor}"=idUnidadNomb != "{valor}"
 [keyword][]TOPE_INCIDENCIAS=(pago.getTabSueldo() + pago.getTabCompensacion()) * 30.0 / 100.00
 [keyword][]GRAVABLE_SEG_SEP=(pago.getTabSueldo() + pago.getTabCompensacion()) / 2.0 * pago.getFactor()
 [condition][]-sin quinquenio=notieneQuinquenio()
@@ -92,7 +93,7 @@
 [keyword][]FACTOR=pago.getFactor()
 [keyword][]CUOTA_ISSSTE_PATRON=0.0997
 [consequence][]Sueldo base ISSSTE patron con {valor}=pago.setAcumuladoSdoBasePatron({valor});
-[keyword][]TOPE_SDO_BASE_PATRON=pago.sueldoBasePatron(10956.00 * pago.getFactor())
+[keyword][]TOPE_SDO_BASE_PATRON=pago.sueldoBasePatron(11323.50 * pago.getFactor())
 [keyword][]GRAVABLE_DIFERENCIAS=(pago.montoConceptoRetroactivo("P","07")+pago.montoConceptoRetroactivo("P","06")+pago.montoConceptoRetroactivo("P","38")+pago.montoConceptoRetroactivo("P","44")+pago.montoConceptoRetroactivo("P","46")+pago.montoConceptoRetroactivo("P","77"))
 [keyword][]PRIMA_VAC_EXCENTA=(73.04 * 7.5)
 [keyword][]FACTOR_PRIMA_VAC=(30.4 / 181.0)
@@ -103,5 +104,5 @@
 [condition][]-nomina ordinaria=idTipoNomina == 'OR'
 [condition][]-nomina incentivo=idTipoNomina == 'IN'
 [condition][]-nomina extranjero=idTipoNomina == 'CJ'
-[keyword][]SDO_BASE_PATRON=(pago.sueldoBasePatron(10956.00 * pago.getFactor() + 1))
+[keyword][]SDO_BASE_PATRON=(pago.sueldoBasePatron(11323.50 * pago.getFactor() + 1))
 [condition][]-no tiene concepto "{tipo}" "{concepto}"=!tieneConcepto("{tipo}","{concepto}")

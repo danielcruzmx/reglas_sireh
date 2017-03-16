@@ -464,6 +464,7 @@ rule "Seguro colectivo de retiro para pares, no retroactivo"
         -nomina ordinaria
         -no honorarios
         -es quincena par
+        -no es de la unidad "G00"
         -no retroactivo
     then
         Asignar DEDUCCION codigo "77" con valor MONTO_SEGURO_COLECTIVO_PAR
@@ -476,6 +477,7 @@ rule "Seguro colectivo de retiro para nones, no retroactivo"
         -nomina ordinaria
         -no honorarios
         -es quincena non
+        -no es de la unidad "G00"
         -no retroactivo
     then
         Asignar DEDUCCION codigo "77" con valor MONTO_SEGURO_COLECTIVO_NON
@@ -488,6 +490,7 @@ rule "Seguro colectivo de retiro para pares, con retroactivo"
         -nomina ordinaria
         -no honorarios
         -es quincena par
+        -no es de la unidad "G00"
         -es retroactivo
     then
         Asignar DEDUCCION codigo "77" con valor MONTO_SEGURO_COLECTIVO_MES
@@ -500,6 +503,7 @@ rule "Seguro colectivo de retiro para nones, con retroactivo"
         -nomina ordinaria
         -no honorarios
         -es quincena non
+        -no es de la unidad "G00"
         -es retroactivo
     then
         Asignar DEDUCCION codigo "77" con valor (Math.floor(7.275 * FACTOR * 100) / 100 - pago.montoConceptoRetroactivo("D","77"))
@@ -547,6 +551,19 @@ rule "Descuento de cuota sindical basificados y fondo de retiro"
         -nomina ordinaria
         -confianza
         -tiene DEDUCCION codigo "S8"
+    then
+        Asignar DEDUCCION codigo "S8" con valor ((SUELDO * CUOTA_SIND) + (ADEUDO_CPTO "D" "S8"))
+        Asignar DEDUCCION codigo "S1" con valor ((SUELDO * FONDO_RET_SIND) + (ADEUDO_CPTO "D" "S1"))
+end
+
+rule "Especial cuota sindical basificados y fondo de retiro"
+    salience 50
+    when
+        Pago
+        -nomina ordinaria
+        -base
+        -tiene DEDUCCION codigo "S8"
+        -es filiacion "AASM601014IWA"
     then
         Asignar DEDUCCION codigo "S8" con valor ((SUELDO * CUOTA_SIND) + (ADEUDO_CPTO "D" "S8"))
         Asignar DEDUCCION codigo "S1" con valor ((SUELDO * FONDO_RET_SIND) + (ADEUDO_CPTO "D" "S1"))
@@ -2138,6 +2155,16 @@ rule "Devolucion de Seguro de responsabilidad civil"
         -tiene PERCEPCION codigo "DR"
     then
         Asignar PERCEPCION codigo "DR" con valor (MONTO_CPTO "P" "DR") + (ADEUDO_CPTO "P" "DR") 
+end
+
+rule "Devolucion de responsabilidad "
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "D9"
+    then
+        Asignar PERCEPCION codigo "D9" con valor (MONTO_CPTO "P" "D9") + (ADEUDO_CPTO "P" "D9") 
 end
 
 # fin
