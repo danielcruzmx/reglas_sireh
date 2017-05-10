@@ -95,7 +95,7 @@
 [consequence][]Sueldo base ISSSTE patron con {valor}=pago.setAcumuladoSdoBasePatron({valor});
 [keyword][]TOPE_SDO_BASE_PATRON=pago.sueldoBasePatron(11323.50 * pago.getFactor())
 [keyword][]GRAVABLE_DIFERENCIAS=(pago.montoConceptoRetroactivo("P","07")+pago.montoConceptoRetroactivo("P","06")+pago.montoConceptoRetroactivo("P","38")+pago.montoConceptoRetroactivo("P","44")+pago.montoConceptoRetroactivo("P","46")+pago.montoConceptoRetroactivo("P","77"))
-[keyword][]PRIMA_VAC_EXCENTA=(73.04 * 7.5)
+[keyword][]PRIMA_VAC_EXCENTA=(75.49 * 7.5)
 [keyword][]FACTOR_PRIMA_VAC=(30.4 / 181.0)
 [keyword][]GRAVABLE_PRIMA=pago.getAcumuladoGravablePrima()
 [consequence][]A gravable prima {valor}=pago.setAcumuladoGravablePrima({valor});
