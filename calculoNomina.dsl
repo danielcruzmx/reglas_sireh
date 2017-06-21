@@ -19,12 +19,12 @@
 [condition][]-con erario=erario == 'S'
 [keyword][]CUOTA_SIND=0.015
 [keyword][]PORC_ERARIO=0.001
-[keyword][]MONTO_PREST_FIJAS=(232.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_AYUDA_DESPENSA=(282.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_PREVISION_SOCIAL=(232.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
-[keyword][]MONTO_AYUDA_SERVICIOS=(217.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
-[keyword][]MONTO_AYUDA_TRANSPORTE=(200.00 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
-[keyword][]COMP_X_DESA=(700.00 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
+[keyword][]MONTO_PREST_FIJAS=(257.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_AYUDA_DESPENSA=(342.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_PREVISION_SOCIAL=(257.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
+[keyword][]MONTO_AYUDA_SERVICIOS=(247.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
+[keyword][]MONTO_AYUDA_TRANSPORTE=(250.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
+[keyword][]COMP_X_DESA=(750.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
 [keyword][]PRIMA_QUIN_A1=(50.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A1"))
 [keyword][]PRIMA_QUIN_A2=(62.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A2"))
 [keyword][]PRIMA_QUIN_A3=(87.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A3"))
@@ -85,7 +85,7 @@
 [condition][]-no renuncia SEGURO INDIVIDUAL=!tieneConcepto("U","51")
 [keyword][]DIA_SUELDO=pago.getTabSueldo() / 30.0 * 1.0
 [keyword][]INCENTIVO=pago.getIncentivo()
-[keyword][]GRAVABLE_OPERATIVO=((pago.getTabSueldo() + pago.getTabCompensacion() + pago.getIncentivo()) / 2.0  + 650.0 + 207.5 + 192.5 + 232.5 + 150.0) * pago.getFactor()
+[keyword][]GRAVABLE_OPERATIVO=((pago.getTabSueldo() + pago.getTabCompensacion() + pago.getIncentivo()) / 2.0  + 750.0 + 257.5 + 342.5 + 247.5 + 250.0) * pago.getFactor()
 [condition][]-es retroactivo=retroactivo == true
 [condition][]-movimiento valido=movimiento == 111 || movimiento == 112 || movimiento == 221 || movimiento == 225 || movimiento == 113 || movimiento == 503 || movimiento == 513 || movimiento == 502
 [condition][]-no retroactivo=retroactivo == false
