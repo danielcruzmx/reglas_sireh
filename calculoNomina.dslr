@@ -577,7 +577,7 @@ rule "Descuento de FONAC ORDINARIO "
         -operativo
         -tiene FONAC ORDINARIO
     then
-        Asignar DEDUCCION codigo "21" con valor 217.20 + ADEUDO_FONAC
+        Asignar DEDUCCION codigo "21" con valor 229.27 + ADEUDO_FONAC
 end
 
 rule "Descuento de FONAC EXTRAORDINARIO "
@@ -588,7 +588,7 @@ rule "Descuento de FONAC EXTRAORDINARIO "
         -operativo
         -tiene FONAC EXTRAORDINARIO
     then
-        Asignar DEDUCCION codigo "FE" con valor 217.20 + ADEUDO_FONAC_EXTRAORDINARIO
+        Asignar DEDUCCION codigo "FE" con valor 229.27 + ADEUDO_FONAC_EXTRAORDINARIO
 end
 
 rule "Ahorro solidario personal de mando"
