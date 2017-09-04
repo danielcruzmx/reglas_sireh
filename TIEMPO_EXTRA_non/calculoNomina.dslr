@@ -9,24 +9,29 @@ expander calculoNomina.dsl
 
 # PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
 
-rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
-    salience 20
+
+rule "Dias festivos"
+    salience 40
     when
-       Pago
-       -nomina ordinaria
-       -tiene PERCEPCION codigo "A8"
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "T4"
     then
-      Asignar PERCEPCION codigo "38" con valor (MONTO_CPTO "P" "A8")
-      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "PM") + (MONTO_CPTO "P" "A8")) - isr(MONTO_CPTO "P" "PM"))
+         Asignar PERCEPCION codigo "T4" con valor (MONTO_CPTO "P" "T4") 
+         Asignar PERCEPCION codigo "2E" con valor (MONTO_CPTO "P" "T4")
+         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_OPERATIVO * 2.0 + (MONTO_CPTO "P" "T4")) - isr(GRAVABLE_OPERATIVO * 2.0)
 end
 
+
 rule "Calculo de pensiones alimenticias"
-    salience 10
+    salience 30
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "A8"
+        -tiene PERCEPCION codigo "T4"
     then
         Calcula y asigna pensiones "D" "62" 
 end
 
+# FIN

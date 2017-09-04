@@ -644,6 +644,17 @@ rule "Seguro de separacion mando medio"
         Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
 end
 
+#rule "Seguro de separacion mando superior"
+#    salience 50
+#    when
+#        Pago
+#        -mando superior
+#        -tiene DEDUCCION codigo "82"
+#    then
+#        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
+#        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR) 
+#end
+
 rule "Seguro de separacion mando superior"
     salience 50
     when
@@ -651,8 +662,8 @@ rule "Seguro de separacion mando superior"
         -mando superior
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
-        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR) 
+        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
 end
 
 rule "Seguro de vida institucional"
@@ -1426,6 +1437,27 @@ rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
        Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE * 2.0) / 2.0
 end
 
+rule "Ajuste impuestos a mandos superiores"
+    salience 41
+    when
+        Pago
+        -mando superior
+        -tiene DEDUCCION codigo "0I"
+    then
+        Asignar DEDUCCION codigo "0I" con valor (MONTO_CPTO "D" "0I")
+end
+
+rule "ispt ajuste a mandos medios"
+    salience 41
+    when
+        Pago
+        -mando o enlace
+        -tiene DEDUCCION codigo "0I"
+    then
+        Asignar DEDUCCION codigo "0I" con valor (MONTO_CPTO "D" "0I")
+end
+
+
 rule "Calculo del impuesto para incentivo "
     salience 40
     when
@@ -1435,6 +1467,8 @@ rule "Calculo del impuesto para incentivo "
        Asignar DEDUCCION codigo "01" con valor isr(GRAVABLE) - (MONTO_CPTO "U" "II") * 2.0
        Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE) - (MONTO_CPTO "U" "II") * 2.0
 end
+
+
 
 rule "Calculo del impuesto operativo, sobre GRAVABLE con retroactivo quincena non"
     salience 40
@@ -1953,6 +1987,19 @@ rule "Seguro de separacion P76, mando medio"
         A gravable prima (bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR) * FACTOR        
 end
 
+#rule "Seguro de separacion P76, mando superior"
+#    salience 41
+#    when
+#        Pago
+#        -mando superior
+#        -tiene DEDUCCION codigo "82"
+#    then
+#        Asignar DEDUCCION codigo "IS" con valor redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
+#        Asignar CONCEPTO codigo "SS" con valor redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+#        Asignar PERCEPCION codigo "76" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
+#        A gravable prima redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
+#end
+
 rule "Seguro de separacion P76, mando superior"
     salience 41
     when
@@ -1960,11 +2007,11 @@ rule "Seguro de separacion P76, mando superior"
         -mando superior
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "IS" con valor redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
-        Asignar CONCEPTO codigo "SS" con valor redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
-        Asignar PERCEPCION codigo "76" con valor redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
-        A gravable prima redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)   
- end
+        Asignar DEDUCCION codigo "IS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4") ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar CONCEPTO codigo "SS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar PERCEPCION codigo "76" con valor  redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        A gravable prima (bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4") ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR) * FACTOR        
+end
 
 # Se cambio en qna 17/2015
 # A gravable prima (bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR) * FACTOR

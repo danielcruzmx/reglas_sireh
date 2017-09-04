@@ -35,7 +35,7 @@
 [keyword][]CUOTA_ISSSTE_0C=0.005
 [keyword][]CUOTA_ISSSTE_0D=0.06125
 [keyword][]CUOTA_ISSSTE_0E=0.00625
-[keyword][]AYUDA_DESP=(282.50 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]AYUDA_DESP=(342.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
 [keyword][]MONTO_SEGURO_COLECTIVO_PAR=(7.28  * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]MONTO_SEGURO_COLECTIVO_MES=(7.275 * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]FONDO_RET_SIND=0.01

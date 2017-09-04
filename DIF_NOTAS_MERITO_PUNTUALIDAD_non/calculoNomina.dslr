@@ -126,12 +126,26 @@ rule "DiFERENCIAS TIEMPO EXTRA"
         -operativo
         -tiene PERCEPCION codigo "DT"
     then
-         Asignar PERCEPCION codigo "T0" con valor (MONTO_CPTO "P" "DT") / 2.0 
-         Asignar PERCEPCION codigo "2E" con valor (MONTO_CPTO "P" "DT") / 2.0 
-         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_OPERATIVO * 2.0 + ((MONTO_CPTO "P" "DT") /2.0)) - isr(GRAVABLE_OPERATIVO * 2.0)
+         Asignar PERCEPCION codigo "T0" con valor (MONTO_CPTO "P" "DT")  
+         Asignar PERCEPCION codigo "2E" con valor (MONTO_CPTO "P" "DT")  
+         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_OPERATIVO * 2.0 + (MONTO_CPTO "P" "DT" )) - isr(GRAVABLE_OPERATIVO * 2.0)
 end
 
-rule "Calculo de pensiones alimenticias TIENE 3 CPTOS"
+rule "DiFERENCIAS dias festivos"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "67"
+    then
+         Asignar PERCEPCION codigo "67" con valor (MONTO_CPTO "P" "67")  
+         Asignar PERCEPCION codigo "6E" con valor (MONTO_CPTO "P" "67")  
+         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_OPERATIVO * 2.0 + (MONTO_CPTO "P" "67")) - isr(GRAVABLE_OPERATIVO * 2.0)
+end
+
+
+rule "Calculo de pensiones alimenticias TIENE 4 CPTOS"
     salience 30
     when
         Pago
@@ -139,6 +153,7 @@ rule "Calculo de pensiones alimenticias TIENE 3 CPTOS"
         -tiene PERCEPCION codigo "PI"
         -tiene PERCEPCION codigo "ND"
         -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "67"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -150,6 +165,7 @@ rule "pensiones alimenticias TIENE PRIMER"
         -tiene pension
         -no tiene concepto "P" "ND"
         -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "PI"
     then
         Calcula y asigna pensiones "D" "62" 
@@ -162,6 +178,7 @@ rule "PENSIONES alimenticias TIENE SEGUNDO"
         -tiene pension
         -no tiene concepto "P" "PI"
         -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "ND"
     then
         Calcula y asigna pensiones "D" "62" 
@@ -174,7 +191,21 @@ rule "PENSIONES alimenticias TIENE TERCERO"
         -tiene pension
         -no tiene concepto "P" "PI"
         -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE CUARTO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DT"
+        -tiene PERCEPCION codigo "67"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -185,6 +216,7 @@ rule "PENSIONES alimenticias TIENE UNO DOS"
         Pago
         -tiene pension
         -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "ND"
         -tiene PERCEPCION codigo "PI"
     then
@@ -197,8 +229,22 @@ rule "PENSIONES alimenticias TIENE UNO TRES"
         Pago
         -tiene pension
         -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "ND"
         -tiene PERCEPCION codigo "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE UNO CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "DT"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "67"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -209,8 +255,88 @@ rule "PENSIONES alimenticias TIENE DOS TRES"
         Pago
         -tiene pension
         -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "67"
         -tiene PERCEPCION codigo "PI"
         -tiene PERCEPCION codigo "DT"
     then
         Calcula y asigna pensiones "D" "62" 
 end
+
+rule "PENSIONES alimenticias TIENE DOS CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DT"
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE TRES CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "PI"
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE UNO DOS TRES"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "67"
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE UNO DOS CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "DT"
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE UNO TRES CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "ND"
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PENSIONES alimenticias TIENE DOS TRES CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -no tiene concepto "P" "PI"
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "67"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
