@@ -114,18 +114,42 @@ rule "Estimulos"
         -operativo
         -tiene PERCEPCION codigo "ER"
     then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "ER") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PI")  
+         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "ER") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "ER")  
         Asignar PERCEPCION codigo "ER" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "ER") ) - (GRAVABLE_PRESTACIONES) * 2.0 
 end
 
+rule "Premio Admon"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "27"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "27") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "27")  
+        Asignar PERCEPCION codigo "27" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "27") ) - (GRAVABLE_PRESTACIONES) * 2.0 
+end
 
-rule "Calculo de pensiones alimenticias"
+rule "Calculo de pensiones alimenticias uno dos tres"
     salience 30
     when
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PY"
         -tiene PERCEPCION codigo "ER"
+        -tiene PERCEPCION codigo "27"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "Calculo de pensiones alimenticias uno"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PY"
+        -no tiene concepto "P" "ER"
+        -no tiene concepto "P" "27"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -135,8 +159,9 @@ rule "Calculo de pensiones alimenticias dos"
     when
         Pago
         -tiene pension
-        -no tiene concepto "P" "PY"
         -tiene PERCEPCION codigo "ER"
+        -no tiene concepto "P" "PY"
+        -no tiene concepto "P" "27"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -146,9 +171,45 @@ rule "Calculo de pensiones alimenticias tres"
     when
         Pago
         -tiene pension
+        -tiene PERCEPCION codigo "27"
+        -no tiene concepto "P" "PY"
         -no tiene concepto "P" "ER"
-        -tiene PERCEPCION codigo "PY"
     then
         Calcula y asigna pensiones "D" "62" 
 end
 
+rule "Calculo de pensiones alimenticias uno dos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PY"
+        -tiene PERCEPCION codigo "ER"
+        -no tiene concepto "P" "27"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "Calculo de pensiones alimenticias uno tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PY"
+        -tiene PERCEPCION codigo "27"
+        -no tiene concepto "P" "ER"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "Calculo de pensiones alimenticias dos tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "ER"
+        -tiene PERCEPCION codigo "27"
+        -no tiene concepto "P" "PY"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
