@@ -1,0 +1,117 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Sueldo y compensacion personal de estructura"
+    salience 200
+    when
+        Pago
+        -nomina ordinaria
+        -estructura
+    then
+        A prestaciones gravadas SUELDO + COMPENSACION
+end
+
+rule "Sueldo y compensacion personal eventual"
+    salience 200
+    when
+        Pago
+        -nomina ordinaria
+        -eventual
+    then
+        A prestaciones gravadas SUELDO + COMPENSACION
+end
+
+rule "Prestaciones fijas del personal operativo"
+    salience 150
+    when 
+        Pago
+        -nomina ordinaria
+        -operativo
+    then
+        A prestaciones gravadas COMP_X_DESA + MONTO_AYUDA_DESPENSA + MONTO_PREVISION_SOCIAL + MONTO_AYUDA_SERVICIOS + MONTO_AYUDA_TRANSPORTE
+end
+
+rule "Prima quinquenal 5 a 9 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A1"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "A1") / 2.0)
+end
+
+rule "Prima quinquenal 10 a 14 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A2"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "A2") / 2.0)
+end
+
+rule "Prima quinquenal 15 a 19 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A3"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "A3") / 2.0)
+end
+
+rule "Prima quinquenal 20 a 25 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A4"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "A4") / 2.0)
+end
+
+rule "Prima quinquenal mayor 25 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A5"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
+end
+ 
+rule "Estimulos"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "ER"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "ER") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "ER" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "ER") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00 + (MONTO_CPTO "P" "ER")   
+end
+
+rule "Calculo de pensiones alimenticias"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "ER"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
