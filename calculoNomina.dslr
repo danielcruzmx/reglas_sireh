@@ -577,7 +577,7 @@ rule "Descuento de FONAC ORDINARIO "
         -operativo
         -tiene FONAC ORDINARIO
     then
-        Asignar DEDUCCION codigo "21" con valor 229.27 + ADEUDO_FONAC
+        Asignar DEDUCCION codigo "21" con valor 243.27 + ADEUDO_FONAC
 end
 
 rule "Descuento de FONAC EXTRAORDINARIO "
@@ -588,7 +588,7 @@ rule "Descuento de FONAC EXTRAORDINARIO "
         -operativo
         -tiene FONAC EXTRAORDINARIO
     then
-        Asignar DEDUCCION codigo "FE" con valor 229.27 + ADEUDO_FONAC_EXTRAORDINARIO
+        Asignar DEDUCCION codigo "FE" con valor 243.27 + ADEUDO_FONAC_EXTRAORDINARIO
 end
 
 rule "Ahorro solidario personal de mando"
@@ -1735,6 +1735,7 @@ rule "Puntualidad Enero, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P0"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P0" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1747,6 +1748,7 @@ rule "Puntualidad Febrero, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P1"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P1" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1759,6 +1761,7 @@ rule "Puntualidad Marzo, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P2"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P2" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1771,6 +1774,7 @@ rule "Puntualidad Abril, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P3"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P3" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1783,6 +1787,7 @@ rule "Puntualidad Mayo, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P4"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P4" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1795,6 +1800,7 @@ rule "Puntualidad Junio, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P5"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P5" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1807,6 +1813,7 @@ rule "Puntualidad Julio, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P6"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P6" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1819,6 +1826,7 @@ rule "Puntualidad Agosto, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P7"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P7" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1831,6 +1839,7 @@ rule "Puntualidad Septiembre, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P8"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P8" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1843,6 +1852,7 @@ rule "Puntualidad Octubre, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "P9"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "P9" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1855,6 +1865,7 @@ rule "Puntualidad Noviembre, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PA"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "PA" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1867,6 +1878,7 @@ rule "Puntualidad Diciembre, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PB"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
         Asignar PERCEPCION codigo "PB" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
@@ -1879,6 +1891,7 @@ rule "Puntualidad Anual 11 meses, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PC") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PC")  
         Asignar PERCEPCION codigo "PC" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PC") ) - (GRAVABLE_PRESTACIONES) * 2.0 
@@ -1891,6 +1904,7 @@ rule "Puntualidad Anual 12 meses, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PE") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PE")  
         Asignar PERCEPCION codigo "PE" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PE") ) - (GRAVABLE_PRESTACIONES) * 2.0 
@@ -1969,6 +1983,7 @@ rule "Diferencias de puntualidad mensual, percepcion"
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "U" "NU"
     then
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PI") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PI")  
         Asignar PERCEPCION codigo "PI" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PI") ) - (GRAVABLE_PRESTACIONES) * 2.0 
@@ -2094,6 +2109,16 @@ end
 
 # DEVOLUCIONES QUE NO AFECTAN EL CALCULO DEVOLUCIONES QUE NO AFECTAN EL CALCULO DEVOLUCIONES QUE NO AFECTAN EL CALCULO DEVOLUCIONES QUE NO AFECTAN EL CALCULO
 
+rule "Reembolso Devolucion por descuentos en demasia"
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "AP"
+    then
+        Asignar PERCEPCION codigo "AP" con valor redondear((MONTO_CPTO "P" "AP") + (ADEUDO_CPTO "P" "AP")) 
+end
+
 rule "Devolucion de seguro de gastos medicos"
     salience 15
     when
@@ -2192,6 +2217,46 @@ rule "Devolucion de ISSSTE seguro de pensiones"
         -tiene PERCEPCION codigo "0D"
     then
         Asignar PERCEPCION codigo "0D" con valor (MONTO_CPTO "P" "0D") + (ADEUDO_CPTO "P" "0D") 
+end
+
+rule "Devolucion UNO de ISSSTE"
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "0A"
+    then
+        Asignar PERCEPCION codigo "0A" con valor (MONTO_CPTO "P" "0A") + (ADEUDO_CPTO "P" "0A") 
+end
+
+rule "Devolucion DOS DE ISSSTE"
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "0B"
+    then
+        Asignar PERCEPCION codigo "0B" con valor (MONTO_CPTO "P" "0B") + (ADEUDO_CPTO "P" "0B") 
+end
+
+rule "Devolucion TRES de ISSSTE"
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "0C"
+    then
+        Asignar PERCEPCION codigo "0C" con valor (MONTO_CPTO "P" "0C") + (ADEUDO_CPTO "P" "0C") 
+end
+
+rule "Devolucion CUSTRO DE ISSSTE"
+    salience 15
+    when
+        Pago
+        -nomina ordinaria
+        -tiene PERCEPCION codigo "0E"
+    then
+        Asignar PERCEPCION codigo "0E" con valor (MONTO_CPTO "P" "0E") + (ADEUDO_CPTO "P" "0E") 
 end
 
 rule "Devolucion de Seguro de responsabilidad civil"

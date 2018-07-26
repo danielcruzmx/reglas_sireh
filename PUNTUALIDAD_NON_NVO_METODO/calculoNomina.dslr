@@ -93,6 +93,30 @@ rule "Prima quinquenal mayor 25 años"
     then
         A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
 end
+
+rule "Puntualidad Febrero, percepcion"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P1"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 - DIA_SUELDO  
+        Asignar PERCEPCION codigo "P1" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 
+end
+
+rule "Puntualidad Marzo, percepcion"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P2"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 - DIA_SUELDO  
+        Asignar PERCEPCION codigo "P2" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 
+end
  
 rule "Notas Merito"
     salience 40
@@ -118,12 +142,86 @@ rule "Puntualidad Acumulada"
         Asignar PERCEPCION codigo "NM" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "NM") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00 + (MONTO_CPTO "P" "NM")   
 end
 
-rule "Calculo de pensiones alimenticias"
+rule "PA 3 cptos"
     salience 30
     when
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "P1"
+        -tiene PERCEPCION codigo "P2"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno uno"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -no tiene concepto "P" "P1"
+        -no tiene concepto "P" "P2"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno dos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "P1"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "P2"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "P2"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "P1"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos uno dos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "P1"
+        -no tiene concepto "P" "P2"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos uno tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "P2"
+        -no tiene concepto "P" "P1"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos dos tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "P1"
+        -tiene PERCEPCION codigo "P2"
+        -no tiene concepto "P" "PF"
     then
         Calcula y asigna pensiones "D" "62" 
 end

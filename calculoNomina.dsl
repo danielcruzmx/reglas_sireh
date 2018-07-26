@@ -19,23 +19,23 @@
 [condition][]-con erario=erario == 'S'
 [keyword][]CUOTA_SIND=0.015
 [keyword][]PORC_ERARIO=0.001
-[keyword][]MONTO_PREST_FIJAS=(257.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_AYUDA_DESPENSA=(342.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
-[keyword][]MONTO_PREVISION_SOCIAL=(257.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
-[keyword][]MONTO_AYUDA_SERVICIOS=(247.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
-[keyword][]MONTO_AYUDA_TRANSPORTE=(250.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
-[keyword][]COMP_X_DESA=(750.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
-[keyword][]PRIMA_QUIN_A1=(50.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A1"))
-[keyword][]PRIMA_QUIN_A2=(62.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A2"))
-[keyword][]PRIMA_QUIN_A3=(87.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A3"))
-[keyword][]PRIMA_QUIN_A4=(100.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A4"))
-[keyword][]PRIMA_QUIN_A5=(112.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A5"))
+[keyword][]MONTO_PREST_FIJAS=(292.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44") - pago.montoConceptoRetroactivo("P","46") - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_AYUDA_DESPENSA=(392.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]MONTO_PREVISION_SOCIAL=(292.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","44"))
+[keyword][]MONTO_AYUDA_SERVICIOS=(282.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","46"))
+[keyword][]MONTO_AYUDA_TRANSPORTE=(300.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","95"))
+[keyword][]COMP_X_DESA=(800.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","77"))
+[keyword][]PRIMA_QUIN_A1=(80.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A1"))
+[keyword][]PRIMA_QUIN_A2=(92.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A2"))
+[keyword][]PRIMA_QUIN_A3=(117.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A3"))
+[keyword][]PRIMA_QUIN_A4=(130.0 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A4"))
+[keyword][]PRIMA_QUIN_A5=(142.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","A5"))
 [keyword][]CUOTA_ISSSTE_0A=0.0275
 [keyword][]CUOTA_ISSSTE_0B=0.00625
 [keyword][]CUOTA_ISSSTE_0C=0.005
 [keyword][]CUOTA_ISSSTE_0D=0.06125
 [keyword][]CUOTA_ISSSTE_0E=0.00625
-[keyword][]AYUDA_DESP=(342.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
+[keyword][]AYUDA_DESP=(392.5 * pago.getFactor() - pago.montoConceptoRetroactivo("P","38"))
 [keyword][]MONTO_SEGURO_COLECTIVO_PAR=(7.28  * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]MONTO_SEGURO_COLECTIVO_MES=(7.275 * pago.getFactor() - pago.montoConceptoRetroactivo("D","77"))
 [keyword][]FONDO_RET_SIND=0.01
@@ -43,7 +43,7 @@
 [keyword][]PORC_CPTO "{tipo}" "{concepto}"=pago.porcentajeConcepto("{tipo}","{concepto}")
 [keyword][]RANGO {grav}  {inf}  {sup}  {cuota}  {exced}=pago.ispt({grav},{inf},{sup},{cuota},{exced})
 [keyword][]MONTO_SEG_FOV=(8.50 * pago.getFactor()  - pago.montoConceptoRetroactivo("D","68"))
-[keyword][]MONTO_FONAC=193.87
+[keyword][]MONTO_FONAC=243.27
 [keyword][]PERCEPCION="P"
 [keyword][]DEDUCCION="D"
 [keyword][]CONCEPTO="C"
@@ -51,7 +51,7 @@
 [consequence][]Integra sueldo base ISSSTE con {valor}=pago.setAcumuladoSdoBase({valor});
 [consequence][]Suma a gravable {valor}=pago.setAcumuladoGravable({valor});
 [consequence][]Calcula y asigna pensiones "{tipo}" "{concepto}"=pago.calculaPensiones("{tipo}","{concepto}");
-[keyword][]TOPE_SDO_BASE=pago.sueldoBase(12090.00 * pago.getFactor())
+[keyword][]TOPE_SDO_BASE=pago.sueldoBase(12251.12 * pago.getFactor())
 [keyword][]GRAVABLE=pago.getAcumuladoGravable()
 [keyword][]MONTO_SEG_SEP=((pago.getTabSueldo() + pago.getTabCompensacion()) * pago.porcentajeConcepto("D","82") / 100.00 /2.0 * pago.getFactor() - pago.montoConceptoRetroactivo("D","82"))
 [keyword][]LIC_MEDICAS_MEDIO_SDO=pago.acumulaLicencias("DLM")
@@ -93,9 +93,9 @@
 [keyword][]FACTOR=pago.getFactor()
 [keyword][]CUOTA_ISSSTE_PATRON=0.0997
 [consequence][]Sueldo base ISSSTE patron con {valor}=pago.setAcumuladoSdoBasePatron({valor});
-[keyword][]TOPE_SDO_BASE_PATRON=pago.sueldoBasePatron(12090.00 * pago.getFactor())
+[keyword][]TOPE_SDO_BASE_PATRON=pago.sueldoBasePatron(12251.12 * pago.getFactor())
 [keyword][]GRAVABLE_DIFERENCIAS=(pago.montoConceptoRetroactivo("P","07")+pago.montoConceptoRetroactivo("P","06")+pago.montoConceptoRetroactivo("P","38")+pago.montoConceptoRetroactivo("P","44")+pago.montoConceptoRetroactivo("P","46")+pago.montoConceptoRetroactivo("P","77"))
-[keyword][]PRIMA_VAC_EXCENTA=(75.49 * 7.5)
+[keyword][]PRIMA_VAC_EXCENTA=(80.60 * 7.5)
 [keyword][]FACTOR_PRIMA_VAC=(30.4 / 181.0)
 [keyword][]GRAVABLE_PRIMA=pago.getAcumuladoGravablePrima()
 [consequence][]A gravable prima {valor}=pago.setAcumuladoGravablePrima({valor});
@@ -104,5 +104,5 @@
 [condition][]-nomina ordinaria=idTipoNomina == 'OR'
 [condition][]-nomina incentivo=idTipoNomina == 'IN'
 [condition][]-nomina extranjero=idTipoNomina == 'CJ'
-[keyword][]SDO_BASE_PATRON=(pago.sueldoBasePatron(12090.00 * pago.getFactor() + 1))
+[keyword][]SDO_BASE_PATRON=(pago.sueldoBasePatron(12251.12 * pago.getFactor() + 1))
 [condition][]-no tiene concepto "{tipo}" "{concepto}"=!tieneConcepto("{tipo}","{concepto}")
