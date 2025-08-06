@@ -1,0 +1,255 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Notas Merito DIFERENCIAS"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "ND"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "ND") ) - (MONTO_CPTO "P" "AM")  - (MONTO_CPTO "P" "ND")  
+        Asignar PERCEPCION codigo "ND" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "ND") ) - (MONTO_CPTO "P" "AM")
+end
+
+rule "pUNTUALIDAD DIFERENCIAS"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PI"
+    then
+         Asignar DEDUCCION codigo "IP" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "PI") ) - (MONTO_CPTO "P" "AM")  - (MONTO_CPTO "P" "PI")  
+        Asignar PERCEPCION codigo "PI" con valor bruto((MONTO_CPTO "P" "AM") - (MONTO_CPTO "P" "IM")  + (MONTO_CPTO "P" "PI") ) - (MONTO_CPTO "P" "AM")
+end
+
+rule "DiFERENCIAS TIEMPO EXTRA"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "DT"
+    then
+         Asignar PERCEPCION codigo "T0" con valor (MONTO_CPTO "P" "DT") 
+         Asignar PERCEPCION codigo "2E" con valor (MONTO_CPTO "P" "DT") 
+         Asignar DEDUCCION codigo "IT" con valor isr((MONTO_CPTO "P" "AM") + ((MONTO_CPTO "P" "DT") )) - (MONTO_CPTO "P" "IM")
+end
+
+rule "DiFERENCIAS DIAS ECONOMICOS"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "DF"
+    then
+         Asignar PERCEPCION codigo "67" con valor (MONTO_CPTO "P" "DF") 
+         Asignar PERCEPCION codigo "6E" con valor (MONTO_CPTO "P" "DF") 
+         Asignar DEDUCCION codigo "IT" con valor isr((MONTO_CPTO "P" "AM") + ((MONTO_CPTO "P" "DF") )) - (MONTO_CPTO "P" "IM")
+end
+
+rule "PA 4 CPTOS"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA UNO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA DOS"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "ND"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA TRES"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "DT"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA CUARTO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA UNO DOS"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -no tiene concepto "P" "DT"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA UNO TRES"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "DT"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA UNO CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "ND"
+        -no tiene concepto "P" "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA DOS TRES"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DT"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA DOS CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA TRES CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "PI"
+        -no tiene concepto "P" "ND"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA T 1"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "DF"
+        -tiene PERCEPCION codigo "ND"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA T 2"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DT"
+        -no tiene concepto "P" "DF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA T 3"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "ND"
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "DT"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA T 4"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -tiene PERCEPCION codigo "DT"
+        -tiene PERCEPCION codigo "DF"
+        -no tiene concepto "P" "ND"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end

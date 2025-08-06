@@ -509,29 +509,6 @@ rule "Seguro colectivo de retiro para nones, con retroactivo"
         Asignar DEDUCCION codigo "77" con valor (Math.floor(7.275 * FACTOR * 100) / 100 - pago.montoConceptoRetroactivo("D","77"))
 end
 
-# estas reglas se derogan 29/12/2015
-
-#rule "Descuento del erario federal estructura, eventual"
-#    salience 50
-#    when
-#        Pago
-#        -nomina ordinaria
-#        -no honorarios
-#    then
-#        Asignar DEDUCCION codigo "26" con valor SUELDO * PORC_ERARIO
-#end
-
-#rule "Descuento del erario federal honorarios"
-#    salience 50
-#    when
-#        Pago
-#        -honorario
-#        -con erario
-#        -no tiene RENUNCIA ERARIO
-#    then
-#        Asignar DEDUCCION codigo "26" con valor SUELDO_HONORARIO * PORC_ERARIO
-#end
-
 rule "Descuento de cuota sindical y fondo de retiro"
     salience 50
     when
@@ -640,20 +617,9 @@ rule "Seguro de separacion mando medio"
         -mando o enlace
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
-        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar DEDUCCION codigo "81" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar DEDUCCION codigo "82" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
 end
-
-#rule "Seguro de separacion mando superior"
-#    salience 50
-#    when
-#        Pago
-#        -mando superior
-#        -tiene DEDUCCION codigo "82"
-#    then
-#        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
-#        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) +  redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0 - isr((GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE + (bruto((GRAVABLE) * 2.0 - isr((GRAVABLE) * 2.0) + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (GRAVABLE))) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR) 
-#end
 
 rule "Seguro de separacion mando superior"
     salience 50
@@ -662,8 +628,8 @@ rule "Seguro de separacion mando superior"
         -mando superior
         -tiene DEDUCCION codigo "82"
     then
-        Asignar DEDUCCION codigo "81" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
-        Asignar DEDUCCION codigo "82" con valor (redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)) - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+        Asignar DEDUCCION codigo "81" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar DEDUCCION codigo "82" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
 end
 
 rule "Seguro de vida institucional"
@@ -685,16 +651,6 @@ rule "Seguro de vida honorarios con adeudo"
     then
         Asignar DEDUCCION codigo "51" con valor ((SUELDO_HONORARIO + COMPENSACION_HONORARIO) * (MONTO_CPTO "D" "51") / 100.0 + (ADEUDO_CPTO "D" "51")) 
 end
-
-/*rule "Seguro de vida honorarios"
-    salience 50
-    when
-        Pago
-        -honorario
-        -tiene DEDUCCION codigo "51"
-    then
-        Asignar DEDUCCION codigo "51" con valor (MONTO_CPTO "D" "51") + (ADEUDO_CPTO "D" "51")
-end*/
 
 rule "Credito FOVISSSTE amortizacion creciente"
     salience 50
@@ -1408,23 +1364,161 @@ end*/
 
 # ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES ADICIONALES
 
-/*rule "Calculo del excedente del sueldo base"
-    salience 50
-    when
-       Pago
-       -nomina ordinaria
-    then
-       Asignar CONCEPTO codigo "DS" con valor SUELDO_BASE - TOPE_SDO_BASE
-end*/
-
-/*rule "Calculo del impuesto, asignacion de gravable"
+rule "Puntualidad Enero, percepcion"
     salience 45
     when
-       Pago
-       -nomina ordinaria
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P0"
+        -no tiene concepto "U" "NU"
     then
-       Asignar CONCEPTO codigo "CG" con valor GRAVABLE
-end*/
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P0" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Febrero, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P1"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P1" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Marzo, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P2"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P2" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Abril, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P3"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P3" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Mayo, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P4"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P4" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Junio, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P5"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P5" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Julio, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P6"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P6" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Agosto, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P7"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P7" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Septiembre, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P8"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P8" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Octubre, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "P9"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "P9" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Noviembre, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PA"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "PA" con valor DIA_SUELDO
+end
+
+rule "Puntualidad Diciembre, percepcion"
+    salience 45
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PB"
+        -no tiene concepto "U" "NU"
+    then
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "PB" con valor DIA_SUELDO
+end
 
 rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
     salience 40
@@ -1512,8 +1606,8 @@ rule "Calculo del impuesto mando, sobre GRAVABLE con retroactivo quincena non"
        -es quincena non
        -mando o enlace 
     then
-       Asignar DEDUCCION codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
-       Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0  - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+       Asignar DEDUCCION codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 
+       Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0  
 end
 
 rule "Calculo del impuesto superior, sobre GRAVABLE con retroactivo quincena non"
@@ -1525,8 +1619,8 @@ rule "Calculo del impuesto superior, sobre GRAVABLE con retroactivo quincena non
        -es quincena non
        -mando superior 
     then
-       Asignar DEDUCCION codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)    
-       Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 - redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
+       Asignar DEDUCCION codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 
+       Asignar CONCEPTO codigo "01" con valor isr(GRAVABLE_PRIMA + GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) - isr((GRAVABLE_PRIMA / FACTOR + GRAVABLE_DIFERENCIAS / FACTOR) * 2.0) / 2.0 
 end
 
 rule "Calculo del impuesto, sobre GRAVABLE con retroactivo quincena par"
@@ -1735,162 +1829,6 @@ rule "Prima vacacional gravada operativos, percepcion"
         Asignar PERCEPCION codigo "3G" con valor (bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + (MONTO_CPTO "P" "32" - PRIMA_VAC_EXCENTA) * FACTOR_PRIMA_VAC ) - (GRAVABLE_OPERATIVO) * 2.0 ) / FACTOR_PRIMA_VAC     
 end
 
-rule "Puntualidad Enero, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P0"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P0" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Febrero, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P1"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P1" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Marzo, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P2"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P2" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Abril, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P3"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P3" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Mayo, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P4"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P4" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Junio, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P5"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P5" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Julio, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P6"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P6" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Agosto, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P7"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P7" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Septiembre, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P8"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P8" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Octubre, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P9"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P9" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Noviembre, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "PA"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "PA" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
-rule "Puntualidad Diciembre, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "PB"
-        -no tiene concepto "U" "NU"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "PB" con valor bruto((GRAVABLE_OPERATIVO) * 2.0 - isr((GRAVABLE_OPERATIVO) * 2.0) + DIA_SUELDO ) - (GRAVABLE_OPERATIVO) * 2.0 
-end
-
 rule "Puntualidad Anual 11 meses, percepcion"
     salience 40
     when
@@ -1900,8 +1838,8 @@ rule "Puntualidad Anual 11 meses, percepcion"
         -tiene PERCEPCION codigo "PC"
         -no tiene concepto "U" "NU"
     then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PC") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PC")  
-        Asignar PERCEPCION codigo "PC" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PC") ) - (GRAVABLE_PRESTACIONES) * 2.0 
+        Suma a gravable DIA_SUELDO  
+        Asignar PERCEPCION codigo "PC" con valor DIA_SUELDO
 end
 
 rule "Puntualidad Anual 12 meses, percepcion"
@@ -1928,21 +1866,6 @@ rule "Notas de merito, percepcion"
          Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "NM") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "NM")  
         Asignar PERCEPCION codigo "NM" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "NM") ) - (GRAVABLE_PRESTACIONES) * 2.0 
 end
-
-# Se suprime en marzo del 2016 por cuestiones presupuestarias
-
-#rule "Puntualidad consecutiva, percepcion"
-#    salience 40
-#    when
-#        Pago
-#        -nomina ordinaria
-#        -operativo
-#        -tiene PERCEPCION codigo "PF"
-#        -no tiene concepto "P" "NP"
-#    then
-#         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PF") ) - (GRAVABLE_PRESTACIONES) * 2.0  - (MONTO_CPTO "P" "PF")  
-#        Asignar PERCEPCION codigo "PF" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PF") ) - (GRAVABLE_PRESTACIONES) * 2.0 
-#end
 
 rule "Puntualidad por notas de merito, percepcion"
     salience 40
@@ -1996,12 +1919,37 @@ rule "Diferencias de puntualidad mensual, percepcion"
         Asignar PERCEPCION codigo "PI" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + (MONTO_CPTO "P" "PI") ) - (GRAVABLE_PRESTACIONES) * 2.0 
 end
 
-rule "Seguro de separacion P76, mando medio"
+/*rule "Seguro de separacion P76, mando medio"
     salience 41
     when
         Pago
         -mando o enlace
         -tiene DEDUCCION codigo "82"
+    then
+        Suma a gravable (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar PERCEPCION codigo "76" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        A gravable prima (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+end*/
+
+/*rule "Seguro de separacion P76, mando superior"
+    salience 41
+    when
+        Pago
+        -mando superior
+        -tiene DEDUCCION codigo "82"
+    then
+        Suma a gravable (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        Asignar PERCEPCION codigo "76" con valor (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+        A gravable prima (MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82"))
+end*/
+
+rule "Sin Reg Seguro de separacion P76, mando medio"
+    salience 41
+    when
+        Pago
+        -mando o enlace
+        -tiene DEDUCCION codigo "82"
+        -no tiene concepto "P" "76"
     then
         Asignar DEDUCCION codigo "IS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
         Asignar CONCEPTO codigo "SS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
@@ -2009,12 +1957,13 @@ rule "Seguro de separacion P76, mando medio"
         A gravable prima (bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR) * FACTOR        
 end
 
-rule "Seguro de separacion P76, mando superior"
+rule "Sin reg Seguro de separacion P76, mando superior"
     salience 41
     when
         Pago
         -mando superior
         -tiene DEDUCCION codigo "82"
+        -no tiene concepto "P" "76"
     then
         Asignar DEDUCCION codigo "IS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4") ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
         Asignar CONCEPTO codigo "SS" con valor redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR)
@@ -2032,6 +1981,34 @@ rule "Ayuda Vehicular, percepcion"
          Asignar DEDUCCION codigo "IV" con valor isr((GRAVABLE) * 2.0 + ((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 - (isr((GRAVABLE) * 2.0) / 2.0)
         Asignar PERCEPCION codigo "84" con valor (((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 
         A gravable prima (((MONTO_CPTO "P" "84") + (ADEUDO_CPTO "P" "84")) * 2.0) / 2.0 
+end
+
+rule "Reg Seguro de separacion P76, mando medio"
+    salience 41
+    when
+        Pago
+        -mando o enlace
+        -tiene DEDUCCION codigo "82"
+        -tiene PERCEPCION codigo "76"
+    then
+        Asignar DEDUCCION codigo "IS" con valor 2.0 * (redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        Asignar CONCEPTO codigo "SS" con valor 2.0 * (redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        Asignar PERCEPCION codigo "76" con valor  redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + (2.0 * redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        A gravable prima (bruto((GRAVABLE_SEG_SEP + AYUDA_DESP ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP) / FACTOR) * FACTOR        
+end
+
+rule "Reg Seguro de separacion P76, mando superior"
+    salience 41
+    when
+        Pago
+        -mando superior
+        -tiene DEDUCCION codigo "82"
+        -tiene PERCEPCION codigo "76"
+    then
+        Asignar DEDUCCION codigo "IS" con valor 2.0 * (redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4") ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        Asignar CONCEPTO codigo "SS" con valor 2.0 * (redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        Asignar PERCEPCION codigo "76" con valor  redondear(MONTO_SEG_SEP + (ADEUDO_CPTO "D" "82")) + (2.0 * redondear((bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR - (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82"))) * FACTOR))
+        A gravable prima (bruto((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4") ) / FACTOR * 2.0 - isr((GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR * 2.0) + (MONTO_SEG_SEP / FACTOR + (ADEUDO_CPTO "D" "82")) * 2.0) / 2.0 - (GRAVABLE_SEG_SEP + AYUDA_DESP + (MONTO_CPTO "P" "H4")) / FACTOR) * FACTOR        
 end
 
 # REGLA INSERTADA EL 16/mayo/2014

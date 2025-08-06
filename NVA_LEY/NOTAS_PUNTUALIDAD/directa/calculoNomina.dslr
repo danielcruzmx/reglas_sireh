@@ -94,73 +94,35 @@ rule "Prima quinquenal mayor 25 años"
         A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
 end
 
-rule "Dias festivos"
+rule "pc Puntualidad PC"
     salience 40
     when
         Pago
         -nomina ordinaria
         -operativo
-        -tiene PERCEPCION codigo "67"
+        -tiene PERCEPCION codigo "3G"
     then
-         Asignar PERCEPCION codigo "67" con valor (MONTO_CPTO "P" "67") 
-         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_PRESTACIONES * 2.0 + (MONTO_CPTO "P" "67")) - isr(GRAVABLE_PRESTACIONES * 2.0)
+        Asignar PERCEPCION codigo "3G" con valor (MONTO_CPTO "P" "3G")
 end
-
-rule "Excento Dias festivos"
+ 
+rule "PE Puntualidad PE"
     salience 40
     when
         Pago
         -nomina ordinaria
         -operativo
-        -tiene PERCEPCION codigo "6E"
+        -tiene PERCEPCION codigo "4E"
     then
-         Asignar PERCEPCION codigo "6E" con valor (MONTO_CPTO "P" "6E") 
+        Asignar DEDUCCION codigo "IB" con valor (MONTO_CPTO "P" "4E")
 end
 
-#rule "TA por Dia festivos"
-#    salience 40
-#    when
-#        Pago
-#        -nomina ordinaria
-#        -operativo
-#        -tiene PERCEPCION codigo "T0"
-#    then
-#         Asignar PERCEPCION codigo "T0" con valor (MONTO_CPTO "P" "T0") 
-#         Asignar PERCEPCION codigo "2E" con valor (MONTO_CPTO "P" "T0")
-#         Asignar DEDUCCION codigo "IT" con valor isr(GRAVABLE_PRESTACIONES * 2.0 + (MONTO_CPTO "P" "T0")) - isr(GRAVABLE_PRESTACIONES * 2.0)
-#end
-
-rule "PENSIONES1 pensiones alimenticias"
+rule "PA 4 cptos"
     salience 30
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "67"
-        -tiene PERCEPCION codigo "6E"
+        -tiene PERCEPCION codigo "3G"
+        -tiene PERCEPCION codigo "4E"
     then
         Calcula y asigna pensiones "D" "62" 
 end
-
-#rule "PEN2 pensiones alimenticias"
-#    salience 30
-#    when
-#        Pago
-#        -tiene pension
-#        -tiene PERCEPCION codigo "T0"
-#        -no tiene concepto "P" "67"
-#    then
-#        Calcula y asigna pensiones "D" "62" 
-#end
-
-#rule "PEN3 pensiones alimenticias"
-#    salience 30
-#    when
-#        Pago
-#        -tiene pension
-#        -tiene PERCEPCION codigo "67"
-#        -tiene PERCEPCION codigo "6E"
-#    then
-#        Calcula y asigna pensiones "D" "62" 
-#end
-
-# FIN

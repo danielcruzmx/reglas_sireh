@@ -94,43 +94,142 @@ rule "Prima quinquenal mayor 25 años"
         A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
 end
 
-rule "Puntualidad Febrero, percepcion"
-    salience 40
-    when
-        Pago
-        -nomina ordinaria
-        -operativo
-        -tiene PERCEPCION codigo "P1"
-    then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P1" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 
-end
+#rule "Responsabilidades D29"
+#    salience 50
+#    when
+#        Pago
+#        -nomina ordinaria
+#        -tiene DEDUCCION codigo "29"
+#    then
+#        Asignar DEDUCCION codigo "29" con valor (MONTO_CPTO "D" "29") 
+#end
 
-rule "Puntualidad Marzo, percepcion"
+#rule "Devolucion de impuesto PD1"
+#    salience 15
+#    when
+#        Pago
+#        -nomina ordinaria
+#        -tiene PERCEPCION codigo "D1"
+#    then
+#        Asignar PERCEPCION codigo "D1" con valor (MONTO_CPTO "P" "D1") + (ADEUDO_CPTO "P" "D1") 
+#end
+
+#rule "Puntualidad Febrero, percepcion"
+#    salience 40
+#    when
+#        Pago
+#        -nomina ordinaria
+#        -operativo
+#        -tiene PERCEPCION codigo "P1"
+#    then
+#         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 - DIA_SUELDO  
+#        Asignar PERCEPCION codigo "P1" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 
+#end
+
+rule "Punt abc, percepcion"
     salience 40
     when
         Pago
         -nomina ordinaria
         -operativo
-        -tiene PERCEPCION codigo "P2"
+        -tiene PERCEPCION codigo "PC"
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PE"
     then
-         Asignar DEDUCCION codigo "IP" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 - DIA_SUELDO  
-        Asignar PERCEPCION codigo "P2" con valor bruto((GRAVABLE_PRESTACIONES) * 2.0 - isr((GRAVABLE_PRESTACIONES) * 2.0) + DIA_SUELDO ) - (GRAVABLE_PRESTACIONES) * 2.0 
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PC" con valor (MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PC") / ((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PE" con valor (MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PE") / ((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PF" con valor (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PF") / ((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
 end
  
-rule "Notas Merito"
+rule "Punt ab, percepcion"
     salience 40
     when
         Pago
         -nomina ordinaria
         -operativo
         -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "P" "PC"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PE" con valor (MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PE") / ((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PF" con valor (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PF") / ((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PE")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+end
+
+rule "Punt aC, percepcion"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "P" "PE"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PC")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PC" con valor (MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PC") / ((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PC")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") ) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PF" con valor (MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PF") / ((MONTO_CPTO "P" "PF") + (MONTO_CPTO "P" "PC")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PF") ) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+end
+
+rule "Punt BC, percepcion"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "P" "PF"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PC")) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PC" con valor (MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PC") / ((MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PC")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PE") ) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PE" con valor (MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PE") / ((MONTO_CPTO "P" "PE") + (MONTO_CPTO "P" "PC")) * (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + (((MONTO_CPTO "P" "PC") + (MONTO_CPTO "P" "PE") ) * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+end
+
+rule "Punt a solita"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PF"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PE") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PE" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PE") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00 + (MONTO_CPTO "P" "PE")   
+end
+
+rule "Punt b solita"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PF"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PE"
     then
          Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PF") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
         Asignar PERCEPCION codigo "PF" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PF") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00 + (MONTO_CPTO "P" "PF")   
 end
 
-rule "Puntualidad Acumulada"
+rule "Punt c solita"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PF"
+    then
+         Asignar DEDUCCION codigo "IP" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PC") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00
+        Asignar PERCEPCION codigo "PC" con valor (isr(bruto(((GRAVABLE_PRESTACIONES) * 2.0) - isr((GRAVABLE_PRESTACIONES) * 2.0)  + ((MONTO_CPTO "P" "PC") * 0.08333))) - isr((GRAVABLE_PRESTACIONES) * 2.0)) * 12.00 + (MONTO_CPTO "P" "PC")   
+end
+
+rule "Notas solita"
     salience 40
     when
         Pago
@@ -148,8 +247,8 @@ rule "PA 3 cptos"
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PF"
-        -tiene PERCEPCION codigo "P1"
-        -tiene PERCEPCION codigo "P2"
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PC"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -160,8 +259,8 @@ rule "PA uno uno"
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PF"
-        -no tiene concepto "P" "P1"
-        -no tiene concepto "P" "P2"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PC"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -171,9 +270,9 @@ rule "PA uno dos"
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "P1"
+        -tiene PERCEPCION codigo "PE"
         -no tiene concepto "P" "PF"
-        -no tiene concepto "P" "P2"
+        -no tiene concepto "P" "PC"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -183,9 +282,9 @@ rule "PA uno tres"
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "P2"
+        -tiene PERCEPCION codigo "PC"
         -no tiene concepto "P" "PF"
-        -no tiene concepto "P" "P1"
+        -no tiene concepto "P" "PE"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -196,8 +295,8 @@ rule "PA dos uno dos"
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PF"
-        -tiene PERCEPCION codigo "P1"
-        -no tiene concepto "P" "P2"
+        -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "P" "PC"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -208,8 +307,8 @@ rule "PA dos uno tres"
         Pago
         -tiene pension
         -tiene PERCEPCION codigo "PF"
-        -tiene PERCEPCION codigo "P2"
-        -no tiene concepto "P" "P1"
+        -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "P" "PE"
     then
         Calcula y asigna pensiones "D" "62" 
 end
@@ -219,8 +318,8 @@ rule "PA dos dos tres"
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "P1"
-        -tiene PERCEPCION codigo "P2"
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PC"
         -no tiene concepto "P" "PF"
     then
         Calcula y asigna pensiones "D" "62" 

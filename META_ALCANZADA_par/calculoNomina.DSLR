@@ -9,7 +9,7 @@ expander calculoNomina.dsl
 
 # PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
 
-rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
+/*rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
     salience 20
     when
        Pago
@@ -18,6 +18,17 @@ rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
     then
       Asignar PERCEPCION codigo "ET" con valor (MONTO_CPTO "P" "ET")
       Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "AM") + (MONTO_CPTO "P" "ET")) - isr(MONTO_CPTO "P" "AM"))
+end*/
+
+rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
+    salience 20
+    when
+       Pago
+       -nomina ordinaria
+       -tiene PERCEPCION codigo "ET"
+    then
+      Asignar PERCEPCION codigo "ET" con valor (4500.00)
+      Asignar DEDUCCION codigo "01" con valor (961.20)
 end
 
 rule "Calculo de pensiones alimenticias"

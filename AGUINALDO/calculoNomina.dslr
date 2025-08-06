@@ -9,25 +9,34 @@ expander calculoNomina.dsl
 
 # PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
 
-rule "Devolucion seguro de SSI"
+rule "aguinaldo extra"
     salience 100
     when
         Pago
         -nomina ordinaria
-        -tiene PERCEPCION codigo "76"
+        -tiene PERCEPCION codigo "24"
     then
-        Asignar PERCEPCION codigo "76" con valor (MONTO_CPTO "P" "76")
+        Asignar PERCEPCION codigo "24" con valor (MONTO_CPTO "P" "24")
 end
 
-rule "Impuesto de Devolucion "
+rule "impuesto ag"
     salience 100
     when
         Pago
         -nomina ordinaria
-        -tiene DEDUCCION codigo "01"
+        -tiene DEDUCCION codigo "IA"
     then
-        Asignar DEDUCCION codigo "01" con valor (MONTO_CPTO "D" "01")
+        Asignar DEDUCCION codigo "IA" con valor (MONTO_CPTO "D" "IA")
 end
 
+rule "Calculo de pensiones alimenticias"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "24"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
 
 # fin

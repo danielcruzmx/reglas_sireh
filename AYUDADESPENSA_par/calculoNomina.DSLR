@@ -14,10 +14,10 @@ rule "Calculo del impuesto, sobre GRAVABLE no retroactivo"
     when
        Pago
        -nomina ordinaria
-       -tiene PERCEPCION codigo "A8"
+       -tiene PERCEPCION codigo "X8"
     then
-      Asignar PERCEPCION codigo "38" con valor (MONTO_CPTO "P" "A8")
-      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "PM") + (MONTO_CPTO "P" "A8")) - isr(MONTO_CPTO "P" "PM"))
+      Asignar PERCEPCION codigo "38" con valor (MONTO_CPTO "P" "X8")
+      Asignar DEDUCCION codigo "01" con valor (isr((MONTO_CPTO "P" "AM") + (MONTO_CPTO "P" "X8")) - isr(MONTO_CPTO "P" "AM"))
 end
 
 rule "Calculo de pensiones alimenticias"
@@ -25,7 +25,7 @@ rule "Calculo de pensiones alimenticias"
     when
         Pago
         -tiene pension
-        -tiene PERCEPCION codigo "A8"
+        -tiene PERCEPCION codigo "X8"
     then
         Calcula y asigna pensiones "D" "62" 
 end

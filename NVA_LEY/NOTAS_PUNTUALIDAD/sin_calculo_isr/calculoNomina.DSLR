@@ -1,0 +1,306 @@
+package gob.shcp.sireh.service.nomina;
+
+import gob.shcp.sireh.model.nomina.calculo.PagoDTO;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.isr;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.bruto;
+import function gob.shcp.sireh.service.nomina.calculo.utils.CalculoIspt.redondear;
+
+expander calculoNomina.dsl
+
+# PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES PERCEPCIONES
+
+rule "Sueldo y compensacion personal de estructura"
+    salience 200
+    when
+        Pago
+        -nomina ordinaria
+        -estructura
+    then
+        A prestaciones gravadas SUELDO + COMPENSACION
+end
+
+rule "Sueldo y compensacion personal eventual"
+    salience 200
+    when
+        Pago
+        -nomina ordinaria
+        -eventual
+    then
+        A prestaciones gravadas SUELDO + COMPENSACION
+end
+
+rule "Prestaciones fijas del personal operativo"
+    salience 150
+    when 
+        Pago
+        -nomina ordinaria
+        -operativo
+    then
+        A prestaciones gravadas COMP_X_DESA + MONTO_AYUDA_DESPENSA + MONTO_PREVISION_SOCIAL + MONTO_AYUDA_SERVICIOS + MONTO_AYUDA_TRANSPORTE
+end
+
+rule "Prima quinquenal 5 a 9 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A1"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A1 + ((ADEUDO_CPTO "P" "A1") / 2.0)
+end
+
+rule "Prima quinquenal 10 a 14 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A2"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A2 + ((ADEUDO_CPTO "P" "A2") / 2.0)
+end
+
+rule "Prima quinquenal 15 a 19 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A3"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A3 + ((ADEUDO_CPTO "P" "A3") / 2.0)
+end
+
+rule "Prima quinquenal 20 a 25 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A4"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A4 + ((ADEUDO_CPTO "P" "A4") / 2.0)
+end
+
+rule "Prima quinquenal mayor 25 años"
+    salience 100
+    when
+        Pago
+        -nomina ordinaria
+        -no honorarios
+        -tiene PERCEPCION codigo "A5"
+    then
+        A prestaciones gravadas PRIMA_QUIN_A5 + ((ADEUDO_CPTO "P" "A5") / 2.0)
+end
+
+rule "pc Puntualidad PC"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PC"
+    then
+        Asignar PERCEPCION codigo "PC" con valor (MONTO_CPTO "P" "PC")
+end
+ 
+rule "PE Puntualidad PE"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PE"
+    then
+        Asignar PERCEPCION codigo "PE" con valor (MONTO_CPTO "P" "PE")
+end
+
+rule "PF Puntualidad PF"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PF"
+    then
+        Asignar PERCEPCION codigo "PF" con valor (MONTO_CPTO "P" "PF")
+end
+
+rule "dIFERENCIAS Puntualidad"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene PERCEPCION codigo "PI"
+    then
+        Asignar PERCEPCION codigo "PI" con valor (MONTO_CPTO "P" "PI")
+end
+
+rule "IMPUESTO"
+    salience 40
+    when
+        Pago
+        -nomina ordinaria
+        -operativo
+        -tiene DEDUCCION codigo "IP"
+    then
+        Asignar DEDUCCION codigo "IP" con valor (MONTO_CPTO "D" "IP")
+end
+
+rule "PA 4 cptos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PC"
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno uno"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PC"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno dos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA uno CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "PC"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos uno dos"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PC"
+        -tiene PERCEPCION codigo "PE"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos uno tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PC"
+        -tiene PERCEPCION codigo "PF"
+        -no tiene concepto "P" "PE"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos dos tres"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PC"
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "PF"
+        -no tiene concepto "P" "PE"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos dos CUATRO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PF"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PI"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos dos CINCO"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PE"
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PF"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA dos dos SEIS"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PE"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
+
+rule "PA TRES UNO SIETE"
+    salience 30
+    when
+        Pago
+        -tiene pension
+        -tiene PERCEPCION codigo "PF"
+        -tiene PERCEPCION codigo "PI"
+        -no tiene concepto "P" "PC"
+        -no tiene concepto "P" "PE"
+    then
+        Calcula y asigna pensiones "D" "62" 
+end
